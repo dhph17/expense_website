@@ -1,0 +1,149 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+}
+.col-main{
+    /* margin-top: 10%; */
+    margin-left: 16.667%;
+}
+
+.row-main{
+    padding: 1% 2%;
+}
+.current{
+    background-color: #143456;
+    padding: 3% 10% 3% 5%;
+    border-radius: 10px;
+}
+.crease {
+    /* Thiết lập mặc định cho màu chữ */
+    /* color: black; */
+    /* font-weight: 200; */
+    font-size: smaller;
+}
+
+    .crease[style*="crease"][style*="+"] {
+        --crease-color: #27AE60;
+    }
+    .crease[style*="crease"][style*="-"] {
+        --crease-color: #EB5757;
+    }
+
+.crease {
+    color: var(--crease-color);
+}
+.current-name{
+    font-size: smaller;
+    font-weight: 400;
+}
+.mark-custom{
+    background-color: #333333;
+    margin-left: 1%;
+}
+.mark-item-custom{
+    background-color: #333333;
+    margin-left: 5%;
+}
+.border-custom{
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
+    /* Tô màu cho border phía bên phải */
+    border-right: 1px solid #ccc; /* Thay đổi màu sắc và kích thước theo ý muốn */
+    /* Thêm padding nếu cần */
+    padding-right: 12%;
+}
+.budget, .category, .expense-review, .subscription, .income-review{
+    background-color: #F8F8F8;
+    padding: 3% 5% 3% 5%;
+    border-radius: 10px;
+}
+.budget-view{
+    font-size: smaller;
+    font-weight: 600;
+}
+.budget-category_name{
+    font-weight: 500;
+    /* color: #143456; */
+}
+.budget-category_time{
+    font-weight: 500;
+    font-size: small;
+    /* color: #143456; */
+}
+.th-custom{
+    color: #143456;
+    font-size: smaller;
+    font-weight: smaller;
+}
+.category, .subscription td{
+    font-size: small;
+    /* color: #143456; */
+}
+
+#category__menu--toggle,
+.category__menu--list {
+    display: none;
+}
+
+#category__menu--toggle:checked ~ .category__menu--list {
+    display: block;
+    z-index: 1;
+}
+#category__menu--toggle:checked ~ .category__menu--label  i{
+    color: black;
+}
+
+.category__menu--list{
+    /* width:100px; */
+    border-radius: 10px;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: white ;
+    /* right: 20px; */
+    top: 98%;
+    padding: 10px 10px 20px 10px;
+}
+    /* .category__menu--list:hover{
+        background-color: #ccc;
+        transition: all 0.3s ease;
+    } */
+.date-filter{
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2% 3%;
+    /* position: relative; */
+}
+#datepickerInput{
+    border: none;
+    width: 100%;
+}
+    #datepickerInput:focus{
+        outline: none;
+    }
+
+#datepicker {
+    /* margin-right: 10px; */
+    /* width: -100%; */
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#datepickerInput{
+    border: none;
+    width: 100%;
+}
+    #datepickerInput:focus{
+        outline: none;
+    }
+
+#datepicker {
+    /* margin-right: 10px; */
+    /* width: -100%; */
+    background: none;
+    border: none;
+    cursor: pointer;
+}

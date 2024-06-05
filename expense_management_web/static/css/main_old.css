@@ -1,0 +1,220 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: #FFD4D4;
+    box-sizing: border-box;
+    /* width: 100%; */
+}
+
+li{
+    list-style-type: none;
+}
+
+a{
+    text-decoration: none;
+}
+
+.container{
+    height: 100vh;
+    padding: 1% 1.2vw;
+    box-sizing: border-box;
+}
+.grid_row{
+    display: flex;
+    flex-wrap: nowrap;
+    height: 100%;
+    /* margin-left: 5%; */
+    box-sizing: border-box;
+}
+.grid_columns1{
+    margin-top: 5vh;
+    padding-left: 12px;
+    padding-right: 12px;
+    width: 16.667%;
+}
+
+.in4{
+    height: 30%;
+}
+.in4-images{
+    border-radius: 13px;
+    margin-bottom: 10px;
+}
+.in4-name{
+    font-size:x-large;
+    font-weight: 600;
+    line-height: 35px;
+    color: #FFFFFF;
+    font-family: Poppins;
+    margin-bottom: 2px;
+}
+.in4-email{
+    font-size: small;
+    color: #757575;
+    font-family: Poppins;
+}
+
+.menu-items{
+    margin-bottom: 30px;
+}
+.menu-items_links{
+    font-size: larger;
+    font-weight: 600;
+    font-family: Poppins;
+    color: #979797;
+}
+
+.grid_columns2{
+    display: flex;
+    flex-direction: row;
+    width: 83.333%;
+    
+}
+
+.columns2_1{
+    width: 70%;
+    background-color: #FFFFFF;
+    border-top-left-radius: 13px;
+    border-bottom-left-radius: 13px;
+    padding: 3% 8%;
+}
+.columns2_2{
+    width: 30%;
+    background-color: #F9FAFC;
+    border-top-right-radius: 13px;
+    border-bottom-right-radius: 13px;
+    padding: 4% 4%;
+}
+.content-name{
+    margin-bottom: 2%; 
+    font-weight: 600;
+    font-family: Poppins;
+}
+.content-chart {
+    margin: 3% auto 0 auto;
+    /* padding: 1px 0; */
+    height: 12%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.chart-layout__item {
+    align-self: flex-end;
+    width: 3%;
+    color: #fff;
+    text-align: center;
+    height: var(--percent);
+    background-color: rgba(21, 122 , 255, 0.2);
+}
+
+.list-day{
+    margin-top: 5%;
+    height: 30%;
+}
+.list-when{
+    display: flex;
+    justify-content: space-between;
+}
+.list-when_day{
+    font-family: Poppins;
+}
+/* .list-expences{
+    width: 100%; 
+    height: 23vh; 
+    overflow: auto;
+} */
+.list-expences_item{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: row;
+}
+.list-expences_icon{
+    flex: 1;
+}
+.circle {
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+.circle.grocery{
+    background-color: #32A7E2; 
+}
+.circle.transportation{
+    background-color: #B548C6;
+}
+.circle.housing{
+    background-color: #FF8700;
+}
+.circle.food{
+    background-color: #DC3434;
+}
+.circle.entertainment{
+    background-color: #4BA83D;
+}
+.list-expences_detail{
+    flex: 9;
+    align-self: center;
+}
+.list-expences_name{
+    font-size: medium;
+    font-weight: 600;
+    letter-spacing: 0.34px;
+    color: #273240;
+    font-family: Poppins;
+}
+.list-expences_time{
+    font-family: Poppins;
+    font-size: small;
+    color: rgba(64, 72, 82, 0.5);
+}
+.list-expences_price{
+    flex: 1;
+    align-self: center;
+    /* font-size: medium; */
+    font-weight: bold;
+    letter-spacing: 0.34px;
+    color: #273240;
+    font-family: Poppins;
+}
+.summary-list{
+    margin-top: 15%;
+}
+.summary-item{
+    margin-bottom: 10%;
+}
+.summary-name{
+    font-family: Poppins;
+    font-size: small;
+    font-weight: 600;
+}
+.summary-money{
+    font-family: Poppins;
+    font-size: small;
+    /* font-weight: 600; */
+}
+.summary-detail{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.summary-visualize {
+    margin-top: 2%;
+    height: 5px;
+    background-color: #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.chart-layout__money {
+    height: 100%;
+    width: calc((var(--money)/3000000)*100%);
+    background-color: #31BA96;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+}

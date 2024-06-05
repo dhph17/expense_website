@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+        {% comment %} {% load static %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/myfile.css' %}">
+    <script src="{% static 'js/myfile.js' %}"></script> {% endcomment %}
+
+{% comment %} {% load static %}
+<img src="{% static 'picture/logo-new.png' %}" alt="" style="width: 120px; height: 47px;"> {% endcomment %}
+
+    {% load static%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href=" {% static 'css/header.css' %}">
+
+</head>
+    {% comment %} <body>
+        <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+        <form action="{% url 'users:loginUser'%}" method="post">
+            {% csrf_token %}
+            
+            {{loginForm.as_p}}
+            <input type="submit" value="Login">
+        </form>
+        
+        <script src="" async defer></script>
+    </body> {% endcomment %}
+
+    <body style="">
+    <nav class="navbar navbar-expand-sm bg-light">
+        <div class="container-md">
+            <div class="col-sm-4">
+                <img src="{% static 'picture/logo-new.png' %}" alt="" style="width: 120px; height: 47px;">
+            </div>
+            <div class="col-sm-4">
+                <ul class="navbar-nav d-flex justify-content-around">
+                    <li class="nav-item">
+                        <a href="/home.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">FAQ's</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-4 d-inline-flex justify-content-end equal-buttons">
+                <a class="text-decoration-none" style="color: #143456;" href="{% url 'users:loginUser' %}"><button class="btn btn-outline-custom btn-sm">Login</button></a>
+                <a class="text-decoration-none" style="color: white; margin-left: 2%;" href="{% url 'users:registerUser' %}"><button class="btn btn-custom btn-sm">Sign Up</button></a>
+            </div>
+        </div>   
+    </nav>
+    <div class="container-fluid p-5">
+        <div class="row">
+            <div class="col-md-6 d-flex justify-content-end">
+                <img src="{% static 'picture/money-track-home-new.png' %} " style="width: 500px; height: 500px;">
+                
+            </div>
+            <div class="col-md-6 col-login">
+                <div class="login-form">
+                    <h4 class="mb-4">Login</h4>
+                      {% if error %}
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+                    {% endif %}
+                    <form action="{% url 'users:loginUser'%}" method="post">
+                      {% csrf_token %}
+                        <div class="form-group mb-3">
+                            <label for="username" class="mb-1">Email or Username <strong style="color: red;">*</strong></label>
+                            <input type="username" class="form-control form-control-custom" id="username" name="username" value="{{ username|default:'' }}" placeholder="Enter your email or username" required>
+                        </div>
+                        <div class="form-group mb-1">
+                            <label for="password" class="mb-1">Password <strong style="color: red;">*</strong></label>
+                            <input type="password" class="form-control form-control-custom" id="password" name = "password" placeholder="Enter your password" required>
+                        </div>
+                        <div class="form-login-add mb-3 d-flex justify-content-between">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="remember" name="remember">
+                                <label class="form-check-label text-remember-forgot small" for="remember">Remember Password</label>
+                            </div>
+                            <div class="form-group">
+                                <a href="#" class="forgot-password-link text-remember-forgot small">Forgot Password?</a>
+                            </div>
+                        </div>
+                        <a class="text-decoration-none" style="color: white;" href=""><button type="submit" class="btn btn-custom btn-login mt-2 mb-1" value="Login">Login</button></a>   
+                        <div class="signup d-flex justify-content-center">
+                            <p  class="small">Don't have an account? <a href="{% url 'users:registerUser' %}" class="text-remember-forgot text-decoration-none">Sign Up.</a></p>
+                        </div>
+                         
+                    </form>
+                </div>
+            </div>
+    </div>
+</body>
+
+</html>

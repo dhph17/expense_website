@@ -1,0 +1,241 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: Roboto;
+}
+.col-main{
+    /* margin-top: 10%; */
+    margin-left: 16.667%;
+}
+
+.row-main{
+    padding: 8px 2%;
+}
+
+.category__menu--list{
+    width: 100%;
+    border-radius: 7px;
+    border: 1px solid #ccc;
+    background-color: white ;
+    padding: 10px 10px 20px 10px;
+}
+    /* .category__menu--list:hover{
+        background-color: #ccc;
+        transition: all 0.3s ease;
+    } */
+.date-filter{
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 5px;
+    padding: 2% 3%;
+    /* position: relative; */
+}
+.date-filter input[type="text"]{
+    border: none;
+    width: 100%;
+}
+    .date-filter input[type="text"]:focus{
+        outline: none;
+    }
+
+.date-filter i{
+    /* margin-right: 10px; */
+    /* width: -100%; */
+    /* z-index: 9999 !important; */
+    background: none;
+    border: none;
+    cursor: pointer;
+
+} 
+
+.func-button button:hover{
+    background-color: #ccc;
+    transition: all 0.3s ease;
+}
+.col1{
+    width: 20px;
+    /* border: 0px; */
+}
+.table-custom th{
+    color: #143456;
+}
+
+.add-item input{
+    border: 2px solid black;
+    border-radius: 5px;
+    /* padding: 2% 3%; */
+}
+.add-item input:focus{
+    border-color: black;
+    box-shadow: none;
+}
+
+    /* .your__category--item button:focus {
+        background-color: #ccc;
+        transition: all 0.3s ease;
+    } */
+#budget__menu--toggle, 
+.your__category--list {
+    display: none;
+    /* z-index: 0; */
+}
+
+#budget__menu--toggle:checked ~ .your__category--list {
+    display: block;
+    z-index: 9999;
+}
+.your__category--list{
+    width:200px;
+    border-radius: 5px;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: white ;
+    padding: 2%;
+    top: 0%;
+    left: 100%;
+}
+
+.border {
+    display: inline-flex;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 6px;
+}
+
+.fa-check {
+    position: absolute;
+    margin: auto;
+    width: 40px;
+    height: 40px;
+    top: 10%;
+    background-color: rgba(255, 255, 255, 0.5);
+    /* font-size: 22px; */
+    color: green; /* Màu của dấu tick */
+    display: none; /* Ẩn ban đầu */
+}
+
+.border.active .fa-check {
+    display: block; /* Hiển thị khi button được chọn */
+}
+.border i {
+    margin:auto;
+    font-size: 22px;
+}
+
+.circle {
+    width: 35px; 
+    height: 35px; 
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+
+.circle i {
+    font-size: 15px;
+    color: white;
+}
+.circle.grocery, .circle.bank{
+    background-color: #32A7E2; 
+}
+.circle.transportation, .circle.finance{
+    background-color: #B548C6;
+}
+.circle.housing, .circle.pocket{
+    background-color: #FF8700;
+}
+.circle.food, .circle.salary{
+    background-color: #143456;
+}
+.circle.entertainment{
+    background-color: #4BA83D;
+}
+
+.circle.addcategory{
+    background-color: #ccc;
+}
+.categories-item{
+    cursor: pointer;
+    /* position: relative; */
+}
+    .categories-item:hover{
+        
+        background-color: #FBFBFB;
+        transition: all 0.3s ease;
+    }
+
+    .categories-item input:hover{
+        cursor: pointer;
+    }
+/* .categories-item-button{
+    display: none;
+}
+
+    .categories-item:hover .categories-item-button{
+        display: flex;
+        z-index: 9999;
+    } */
+
+.search-form-model {
+    position: relative;
+    /* display: inline-block; */
+}
+.search-form-modal input[type="text"] {
+    width: 100%;
+    padding: 1%;
+    padding-left: 8%;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.search-form-modal button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 2%
+    /* width: -100%; */;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form-modal button i {
+    width: 100%;
+}
+#addCategory, 
+.your__category--list {
+    display: none;
+    /* z-index: 0; */
+}
+
+#addCategory:checked ~ .your__category--list {
+    display: block;
+    z-index: 9999;
+}
+
+.your__category--list-modal {
+    display: none; /* Ẩn phần "Add Category" mặc định */
+    margin-top: 10px; /* Khoảng cách giữa select và phần "Add Category" */
+}
+.your__category--list-modal{
+    width:200px;
+    border-radius: 5px;
+    position: absolute;
+    border: 1px solid #ccc;
+    background-color: white ;
+    padding: 2%;
+    top: 10%;
+    left: 100%;
+    /* bottom: 0; */
+    /* right: 10%; */
+}
+
+.your__category--list-modal .your__category--item .border {
+    display: inline-flex;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    margin: 6px;
+}

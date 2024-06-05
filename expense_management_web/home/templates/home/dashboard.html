@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="https://kit.fontawesome.com/00d3f63b88.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar nav-bar-custom navbar-expand-sm" style="z-index: 0;">
+        <div class="container-fluid"  style="padding: 0 2.5% 0 4%;">
+            <div class="header-left">
+                <img src="{% static 'picture/logo-new.png' %}" alt="" style="width: 120px; height: 47px;">
+            </div>
+            <div class="header-right d-flex align-items-center justify-content-end">
+                <i class='bx bx-bell'></i>
+                <i class='bx bx-help-circle' style="margin-left: 3%;"></i>
+                <div class="user-header d-flex align-items-center" style="margin-left: 5%;">
+                    <div class="user-header small fw-medium" style="white-space: nowrap;">{{user.username }}</div>
+                    <img src="{% static 'picture/PHIHUNG.jpg' %}" alt="" class="avatar-header" style="margin-left: 10px;">
+                </div>
+                
+            </div>
+        </div>   
+    </nav>
+
+    <section class="main">
+        <div class="row">
+            <div class="col-sm-2 sidebar-section" style="position: fixed;">
+                <div class="sidebar sidebar-custom d-flex flex-column justify-content-between" style="height: 90vh;">
+                    <div class="sidebar-header">
+                        <hr class="mb-2 m-0">
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center" style="background-color: #143456;">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-dashboard' style="color: white;"></i></div>
+                            <a href="{% url 'home:home' %}" class="text-decoration-none text-white"><div class="sidebar__item--text">Dashboard</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-wallet-alt'></i></div>
+                            <a href="{% url 'expenses:indexExpenses' %}"  class="text-decoration-none text-black"><div class="sidebar__item--text">Expense</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-notepad'></i></div>
+                            <a href="{% url 'incomes:indexIncomes' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Income</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-credit-card-alt'></i></div>
+                            <a href="{% url 'expenses:viewBudgets' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Expense Budget</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class="fa-solid fa-sack-dollar"></i></div>
+                            <a href="{% url 'incomes:viewBudgets' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Target Income</div></a>
+                        </div>
+                    </div>
+                    <div class="sidebar-footer">
+                        <hr>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='fa-solid fa-right-from-bracket'></i></div>
+                            <a href="{% url 'users:logoutUser' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Logout</div></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-sm-10 col-main" style="background-color: #FBFBFB;">
+                <div class="row row-main">
+                    <div class="row-header mt-2 mb-4 d-flex justify-content-between">
+                        <h4 class="" style="color: #143456; font-weight: bold">Dashboard</h4>
+                         <form method="post" id="filter-form" name="filter-form" action="{% url 'home:home' %}">
+                        {% csrf_token %}
+                        <div class="filter-month d-flex align-items-center">
+                            <p class="m-0 small fw-bold" style="color: #143456;">Month</p>
+                            <select id="month" name="month" style="margin-left: 5%; font-size: small; height :fit-content" onchange="this.form.submit()">
+                            <option value="" {% if not month %}selected{% endif %}>All</option>
+                            <option value="01" {% if month == '01' %}selected{% endif %}>January</option>
+                            <option value="02" {% if month == '02' %}selected{% endif %}>February</option>
+                            <option value="03" {% if month == '03' %}selected{% endif %}>March</option>
+                            <option value="04" {% if month == '04' %}selected{% endif %}>April</option>
+                            <option value="05" {% if month == '05' %}selected{% endif %}>May</option>
+                            <option value="06" {% if month == '06' %}selected{% endif %}>June</option>
+                            <option value="07" {% if month == '07' %}selected{% endif %}>July</option>
+                            <option value="08" {% if month == '08' %}selected{% endif %}>August</option>
+                            <option value="09" {% if month == '09' %}selected{% endif %}>September</option>
+                            <option value="10" {% if month == '10' %}selected{% endif %}>October</option>
+                            <option value="11" {% if month == '11' %}selected{% endif %}>November</option>
+                            <option value="12" {% if month == '12' %}selected{% endif %}>December</option>
+                        </select>
+                            
+                        </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-sm-7">
+                        <div class="current">
+                            <p class="text-white m-0 mb-1 current-name">Current Balance</p>
+                            <div class="current-money d-flex align-items-center">
+                                <h3 class="text-white m-0" style="letter-spacing: 1px">{{current_balance}}đ</h3>
+                            </div>
+                            <div class="total d-flex mt-5 justify-content-between">
+                                <div class="total-income border-custom">
+                                    <p class="text-white mb-2 current-name">Total Incomes</p>
+                                    <div class="total-income_money d-flex align-items-center">
+                                        <h5 class="text-white m-0" style="letter-spacing: 1px">{{current_income}}đ</h5>
+                                    </div>
+                                    
+                                </div>
+                                <div class="total-spending border-custom">
+                                    <p class="text-white mb-2 current-name">Total Expenses</p>
+                                    <div class="total-spending_money d-flex align-items-center">
+                                        <h5 class="text-white m-0" style="letter-spacing: 1px">{{current_expense}}đ</h5>
+                                    </div>
+                                </div>
+                                <div class="total-savings">
+                                    <p class="text-white mb-2 current-name">Total Savings</p>
+                                    <div class="total-savings_money d-flex align-items-center">
+                                        {% comment %} <h5 class="text-white m-0">${{total_saving |  floatformat }}</h5> {% endcomment %}
+                                        <h5 class="text-white m-0" id="total-savings-display" style="letter-spacing: 1px">{{ total_saving }}đ</h5>
+                                    </div>
+                                    
+                                </div>
+                                <script>
+                                    
+                                </script>
+                            </div>
+                        </div>
+                        <div class="category mt-4">
+                            <div class="budget-header d-flex justify-content-between">
+                                <p class="fw-semibold" style="color: #143456;">Expenses History</p>
+                                <a href="{% url 'expenses:indexExpenses' %}" class="fw-bold small" style="color: #143456;">View All</a>
+                            </div>
+                            <table class="table table-hover table-custom" style="background-color: #F8F8F8">
+                                <thead>
+                                  <tr>
+                                    <th class="th-custom">Category</th>
+                                    <th class="th-custom">Date</th>
+                                    <th class="th-custom">Description</th>
+                                    <th class="th-custom">Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {% for expense in expenses %}
+                                    <tr>
+                                        <td class="d-flex"><i class='bx bx-money-withdraw' style="margin-right: 2%;"></i>{{ expense.category }}</td>
+                                        
+                                        <td>{{ expense.date }}</td>
+                                        <td>{{ expense.note }}</td>
+                                        <td>{{ expense.amount }}</td>
+
+                                    </tr>
+                                    {% endfor %}
+                                  <tr>
+                                    <td class="d-flex" style="padding-left: 20%;">...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="category mt-4">
+                            <div class="budget-header d-flex justify-content-between">
+                                <p class="fw-semibold" style="color: #143456;">Incomes History</p>
+                                <a href="{% url 'incomes:indexIncomes' %}" class="fw-bold small" style="color: #143456;">View All</a>
+                            </div>
+                            <table class="table table-hover table-custom" style="background-color: #F8F8F8">
+                                <thead>
+                                  <tr>
+                                    <th class="th-custom">Category</th>
+                                    <th class="th-custom">Date</th>
+                                    <th class="th-custom">Description</th>
+                                    <th class="th-custom">Amount</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                {% for income in incomes %}
+                                    <tr>
+                                        <td class="d-flex"><i class='bx bx-money-withdraw' style="margin-right: 2%;"></i>{{ income.category }}</td>
+                                        
+                                        <td>{{ income.date }}</td>
+                                        <td>{{ income.note }}</td>
+                                        <td>{{ income.amount }}</td>
+                                        {% comment %} <td>{{ user }}</td> {% endcomment %}
+
+                                    </tr>
+                                    {% endfor %}
+                                  <tr>
+                                    <td class="d-flex" style="padding-left: 20%;">...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                    <td>...</td>
+                                  </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-sm-5">
+                        <div class="expense-review">
+                            <p class="fw-bold text-lg-center">Expense Review</p>
+                            <div class="chart" style="padding: 0 15%">
+                                <canvas id="chart-expense" width="50" height= "50"></canvas>
+                            </div>
+                            <p class="fw-bold text-sm-center mt-3">Total expense money: ${{total_expense}}</p>
+                            <div class="goal d-flex mt-4 small">
+                                Goal:
+                                <div class="goal-answer fw-bold" style="margin-left: 2%;">
+                                    I want to improve on my savings and cut down on my expenses
+                                </div>
+                            </div>
+                            <div class="report d-flex small mt-3">
+                                Report:
+                                <div class="report-answer fw-bold" style="margin-left: 2%;">
+                                    I want to improve on my savings and cut down on my expenses
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="income-review mt-4">
+                            <p class="fw-bold text-lg-center">Income Review</p>
+                            <div class="chart" style="padding: 0 15%">
+                                <canvas id="chart-income" width="50" height= "50"></canvas>
+                            </div>
+                            <p class="fw-bold text-sm-center mt-3">Total income money: ${{total_income}}</p>
+                            <div class="goal d-flex mt-4 small">
+                                Goal:
+                                <div class="goal-answer fw-bold" style="margin-left: 2%;">
+                                    I want to improve on my savings and cut down on my expenses
+                                </div>
+                            </div>
+                            <div class="report d-flex small mt-3">
+                                Report:
+                                <div class="report-answer fw-bold" style="margin-left: 2%;">
+                                    I want to improve on my savings and cut down on my expenses
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function() {
+                                const ctx = document.getElementById('chart-expense').getContext('2d');
+                                const chart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                   labels: [{% for expense in expense_category_totals %}'{{ expense.category__name }}',{% endfor %}],
+                                    datasets: [{
+                                        label: 'Expenses',
+                                        data: [{% for expense in expense_category_totals %}{{ expense.total_amount }},{% endfor %}],
+                                        backgroundColor: [
+                                            '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff99cc',
+                                            '#669999', '#ff6666', '#ffff66', '#99cc66', '#ff9999', '#66cccc', '#cc66ff'
+                                        ],
+                                        borderColor: [
+                                            '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff99cc',
+                                            '#669999', '#ff6666', '#ffff66', '#99cc66', '#ff9999', '#66cccc', '#cc66ff'
+                                        ],
+                                        borderWidth: 0.1
+                                    }]
+                                },
+                                options: {
+                                    cutoutPercentage: 0,
+                                    title: {
+                                        display: true,
+                                        text: 'Expenses Breakdown'
+                                    },
+                                    legend: {
+                                        display: true,
+                                        position: 'bottom' // Đặt chú thích ở dưới biểu đồ
+                                    }
+                                }
+                                
+                            });
+                            
+                        });
+
+                        document.addEventListener('DOMContentLoaded', function() {
+                                const ctx = document.getElementById('chart-income').getContext('2d');
+                                const chart = new Chart(ctx, {
+                                type: 'doughnut',
+                                data: {
+                                    labels: [{% for income in income_category_totals %}'{{ income.category__name }}',{% endfor %}],
+                                    datasets: [{
+                                        label: 'Incomes',
+                                        data: [{% for income in income_category_totals %}{{ income.total_amount }},{% endfor %}],
+                                        backgroundColor: [
+                                            '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff99cc',
+                                            '#669999', '#ff6666', '#ffff66', '#99cc66', '#ff9999', '#66cccc', '#cc66ff'
+                                        ],
+                                        borderColor: [
+                                            '#ff6384', '#36a2eb', '#ffce56', '#4bc0c0', '#9966ff', '#ff99cc',
+                                            '#669999', '#ff6666', '#ffff66', '#99cc66', '#ff9999', '#66cccc', '#cc66ff'
+                                        ],
+                                        borderWidth: 0.1
+                                    }]
+                                },
+                                options: {
+                                    cutoutPercentage: 0,
+                                    title: {
+                                        display: true,
+                                        text: 'Expenses Breakdown'
+                                    },
+                                    legend: {
+                                        display: true,
+                                        position: 'bottom' // Đặt chú thích ở dưới biểu đồ
+                                    }
+                                }
+                                
+                            });
+                            
+                        });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </section>
+
+    
+</body>
+
+
+</html>

@@ -1,0 +1,138 @@
+*{
+    font-family: "Roboto";
+}
+body{
+    box-sizing: border-box;
+    overflow-x: hidden  ;
+}
+.nav-bar-custom {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    /* padding: 10px; */
+    z-index: 1000; /* Đảm bảo header hiển thị trên top của các phần tử khác */
+}
+.bx{
+    font-size: 18px;
+}
+
+.nav-item-menu:hover{
+    font-size: bolder;
+    font-weight: bold;
+    transition: 0.5s;
+}
+.equal-buttons .btn {
+    width: 80px;
+}
+.btn-outline-custom{
+    color: #143456;
+    border-color:  #143456;
+}
+    .btn-outline-custom:hover{
+        border-color: #143456; /* Thay đổi màu border khi hover */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease; /* Hiệu ứng mượt khi hover */
+    }
+.btn-custom{
+    background-color: #143456;
+    color: white;
+}
+    .btn-custom:hover{
+        /* border-color: #143456; */
+        background-color: #143456;
+        color: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease; /* Hiệu ứng mượt khi hover */
+    }
+
+
+    .form-check-input:checked{
+        background-color: #143456; /* Màu nền của ô tick khi checkbox được chọn */
+        border-color: #143456; /* Màu mới của văn bản trong thẻ strong khi checkbox được chọn */
+        box-shadow: 0 0 0 0.2rem rgba(20, 52, 86, 0.30);
+    }
+
+.container-custom{
+    margin: 2% auto;
+    width: 100%;
+}
+
+.search-form {
+    position: relative;
+    /* display: inline-block; */
+}
+
+.search-form input[type="text"] {
+    width: 60%;
+    padding: 1%;
+    padding-left: 6%;
+    border-radius: 5px;
+    border: 2px solid black;
+}
+
+.search-form button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 2%
+    /* width: -100%; */;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form button i {
+    width: 100%;
+}
+
+.avatar-header{
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+.sidebar-custom{
+    border-color: #ccc;
+    padding: 5% 10% 0 10%;
+}
+.sidebar__item-custom{
+    margin-bottom: 5%;
+    border-radius: 5px;
+    cursor: pointer;
+}
+    .sidebar__item-custom:hover{
+        background-color: #ccc;
+        transition: all 0.3s ease;
+    }
+.sidebar__item-icon{
+    margin-left: 2%;
+    margin-right: 3%;
+}
+#pagination-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+#pagination-container button {
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    margin: 0 5px;
+    /* padding: 5px 10px; */
+    border: 1px solid #143456;
+    cursor: pointer;
+}
+
+#pagination-container button:hover {
+    background-color: #ccc;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+/* Định dạng các hàng trong bảng */
+.table tbody tr {
+    display: none;
+}
+
+.table tbody tr:nth-child(n+1) {
+    display: table-row;
+}

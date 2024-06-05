@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Target Income</title>
+    {% load static%}
+    <script src="https://kit.fontawesome.com/00d3f63b88.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css\bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/target.css' %}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+<body>
+    <nav class="navbar nav-bar-custom navbar-expand-sm" style="z-index: 0;">
+        <div class="container-fluid"  style="padding: 0 2.5% 0 4%;">
+            <div class="header-left">
+                <img src="{% static 'picture/logo-new.png' %}" alt="" style="width: 120px; height: 47px;">
+            </div>
+            <div class="header-right d-flex align-items-center justify-content-end">
+                <i class='bx bx-bell'></i>
+                <i class='bx bx-help-circle' style="margin-left: 3%;"></i>
+                <div class="user-header d-flex align-items-center" style="margin-left: 5%;">
+                    <div class="user-header small fw-medium" style="white-space: nowrap;">{{user.username }}</div>
+                    <img src="{% static 'picture/PHIHUNG.jpg' %}" alt="" class="avatar-header" style="margin-left: 10px;">
+                </div>
+                
+            </div>
+        </div>   
+    </nav>
+    <section class="main">
+        <div class="row">
+            <div class="col-sm-2 sidebar-section" style="position: fixed;">
+                <div class="sidebar sidebar-custom d-flex flex-column justify-content-between" style="height: 90vh;">
+                    <div class="sidebar-header">
+                        <hr class="mb-2 m-0">
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-dashboard'></i></div>
+                            <a href="{% url 'home:home' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Dashboard</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-wallet-alt'></i></div>
+                            <a href="{% url 'expenses:indexExpenses' %}"  class="text-decoration-none text-black"><div class="sidebar__item--text">Expense</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-notepad'></i></div>
+                            <a href="{% url 'incomes:indexIncomes' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Income</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='bx bxs-credit-card-alt'></i></div>
+                            <a href="{% url 'expenses:viewBudgets' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Expense Budget</div></a>
+                        </div>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center" style="background-color: #143456">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class="fa-solid fa-sack-dollar" style="color: white"></i></div>
+                            <a href="{% url 'incomes:viewBudgets' %}" class="text-decoration-none text-white"><div class="sidebar__item--text">Target Income</div></a>
+                        </div>
+                    </div>
+                    <div class="sidebar-footer">
+                        <hr>
+                        <div class="sidebar__item sidebar__item-custom d-flex p-2 align-items-center">
+                            <div class="sidebar__item-icon d-flex align-items-center"><i class='fa-solid fa-sign-out'></i></div>
+                            <a href="{% url 'users:logoutUser' %}" class="text-decoration-none text-black"><div class="sidebar__item--text">Logout</div></a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+                
+            </div>
+            <div class="col-sm-10 col-main" style="background-color: #FBFBFB;" >
+                <div class="row row-main" style="padding-right: 36px">
+                    <div class="col-sm-9">
+                        <div class="row-header mt-2 mb-3 d-flex justify-content-between align-items-center">
+                            <h4 class="m-0" style="color: #143456; font-weight: bold">Target Income</h4>
+                            <div id="add-but">
+                                <button class="btn btn-custom small">Add Target Income</button>
+                            </div>
+                        </div>
+                        <div class="budget-container">
+                            <div class="table-container">
+                                <table class="table table-hover table-custom" style="background-color: #F8F8F8">
+                                
+                                    <thead>
+                                        <tr>
+                                            <td colspan="6">
+                                                <div class="func-button d-flex justify-content-between">
+                                                    <button class="btn btn-custom" style="margin-left: 12px;" id="myCategory">My Categories</button>
+                                                    <div class="func-edit-delete d-flex">
+                                                        <button class="btn d-flex align-items-center" id="edit-but" type="button">
+                                                            <i class='bx bxs-edit-alt' style="margin-right: 5%;"></i>
+                                                            Edit
+                                                        </button>
+                                                        
+                                                        <button class="btn d-flex align-items-center" id="delete-but">
+                                                            <i class='bx bxs-message-square-x' style="margin-right: 5%;"></i>
+                                                            Delete
+                                                        </button>
+                                                    </div>
+                                                    
+                                                </div>
+                                                
+                                            </td>
+                                            </tr>                            
+                                        <tr>
+                                        <th class="col1"></th>
+                                        <th class="th-custom">Category</th>
+                                        <th class="th-custom">Amount</th>
+                                        <th class="th-custom">Description</th>
+                                        <th class="th-custom">Date Start</th>
+                                        <th class="th-custom">Date End</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <form method="post" id="delete-form" action="">
+                                            {% csrf_token %}
+                                        {% for budget in budgets %}
+                                        <tr>
+                                            <td style="border-bottom: 0px;">
+                                                <input type="checkbox" name="budget_to_delete" class="budget-checkbox" id="checkbox" value="{{budget.id}}">
+                                            </td>
+                                            <td class="d-flex align-items-center"><i class='fa-solid fa-utensils' style="margin-right: 2%;"></i>{{budget.category }}</td>
+                                            <td>{{budget.amount }}</td>
+                                            <td>{{budget.note }}</td>
+                                            <td>{{budget.start_date }}</td>
+                                            <td>{{budget.end_date }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </form>
+                                    </tbody>
+                                </table>
+                                <div id="pagination-container"></div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div class="col-sm-3" style="background-color: #FBFBFB;">
+                        <div class="row row-main">
+                            <div class="summary-section">
+                                <div class="summarry-content">
+                                    <h6 class="m-0 mt-3 mb-3 fw-semibold" style="color: #143456;">Where your money go?</h6>
+                                </div>
+                                {% comment %} <div class="summary-list mt-3">
+                                    {% for budget in budgets %}
+                                    <div class="summary-item">
+                                        <div class="summary-detail">
+                                            <div class="summary-name">{{budget.category}}</div>
+                                            <div class="summary-money">
+                                                {% for item in savings %}
+                                                {% if budget.category == item.budget.category and item.budget.start_date == budget.start_date%}
+                                                    {{item.saving}}
+                                                {% endif %}
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="summary-visualize">
+                                            <div class="chart-layout__money" style="--money: 872400; --moneytarget: {{budget.amount}}"></div>
+                                        </div>
+                                        <div class="summary-time d-flex justify-content-between mt-1">
+                                            <div class="summary-start"><p class="fw-semibold">{{budget.start_date}}</p></div>
+                                            <div class="summary-end"><p class="fw-semibold">{{budget.end_date}}</p></div>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    {% endfor %}
+                                </div> {% endcomment %}
+
+                                <div class="summary-list mt-3">
+                                    {% for item in savings %}
+                                        <div class="summary-item">
+                                            <div class="summary-detail">
+                                                <div class="summary-name">{{ item.budget.category }}</div>
+                                                <div class="summary-money">
+                                                    {{ item.saving }}
+                                                </div>
+                                            </div>
+                                            <div class="summary-visualize">
+                                                <div class="chart-layout__money" style="--money: {{item.total_income}}; --moneytarget: {{ item.budget.amount }}"></div>
+                                            </div>
+                                            <div class="summary-time d-flex justify-content-between mt-1">
+                                                <div class="summary-start"><p class="fw-semibold">{{ item.budget.start_date }}</p></div>
+                                                <div class="summary-end"><p class="fw-semibold">{{ item.budget.end_date }}</p></div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                    {% endfor %}
+                                </div>
+                                
+                                <script>
+                                    function updateCharts() {
+                                        var chartElements = document.querySelectorAll('.chart-layout__money');
+                                        chartElements.forEach(function(chartElement) {
+                                            var spentMoney = parseFloat(getComputedStyle(chartElement).getPropertyValue('--money'));
+                                            var targetMoney = parseFloat(getComputedStyle(chartElement).getPropertyValue('--moneytarget'));
+                                            var percentage = (spentMoney / targetMoney) * 100;
+                                            if (percentage > 100) {
+                                                percentage = 100;
+                                            }
+                                            chartElement.style.width = percentage + '%';
+                                            if (percentage < 50) {
+                                                chartElement.style.backgroundColor = '#31BA96'; // Màu xanh nếu < 30%
+                                            } else if (percentage <= 70) {
+                                                chartElement.style.backgroundColor = '#FFC300'; // Màu vàng nếu 30% <= tỷ lệ <= 70%
+                                            } else {
+                                                chartElement.style.backgroundColor = '#FF5733'; // Màu đỏ nếu > 70%
+                                            }
+                                        });
+                                    }
+                            
+                                    document.addEventListener('DOMContentLoaded', updateCharts);
+                                </script>
+                            </div>
+                            
+                        </div>         
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Edit Target Income</h5>
+                    </div>
+                    <div class="modal-body d-flex flex-column">
+                        <div class="add-item">
+                            <p class="mb-2 mt-0 m-0">Category</p>
+                            <select id="your-category-edit" name="your-category-edit" style="width: 100%; border: 2px solid black; border-radius: 5px; padding: 2% 2%;">
+                                {% for category in categories %}
+                                    {% if not category.name in default_categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Amount</p>
+                            <input type="text" name="edit-budget-amount" id="edit-budget-amount" class="form-control">
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Note</p>
+                            <input type="text" name="edit-budget-note" id="edit-budget-note" class="form-control">
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Date Start</p>
+                            <div class="date-filter d-flex align-items-center">
+                                <input type="text" id="datepickerInputEdit-start" name="datepickerInputEdit-start">
+                                <i class='bx bxs-calendar' id="datepickerEdit-start"></i>
+                            </div>
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Date End</p>
+                            <div class="date-filter d-flex align-items-center">
+                                <input type="text" id="datepickerInputEdit-end" name="datepickerInputEdit-end">
+                                <i class='bx bxs-calendar' id="datepickerEdit-end"></i>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom mt-2 align-self-center" style="width: 20%; padding: 1% 5%;" id="budget-edit-but">Edit</button>
+                    </div>
+                </div>
+            </div>  
+        </div>
+
+        <div class="modal fade" id="editModalError" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Edit Row</h5>
+                </div>
+                
+                
+                <div class="modal-body">
+                    Please select one row to edit !!!
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="deleteModalError" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">Delete Row</h5>
+                </div>
+                
+                
+                <div class="modal-body">
+                    Please select one row to delete !!!
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="addBudget" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editModalLabel">Add Expense Budget</h5>
+                    </div>
+                    <div class="modal-body d-flex flex-column">
+                        <form action="{% url 'incomes:addBudget' %}" method="post" id="addBudget-form">
+                            {% csrf_token %}
+                        <div class="add-item">
+                            <p class="mb-2 mt-0 m-0">Expense Budget</p>
+                            <select id="your-category" name="your-category" style="width: 100%; border: 2px solid black; border-radius: 5px; padding: 2% 2%;">
+                                {% for category in categories %}
+                                    {% if not category.name in default_categories %}
+                                    <option value="{{ category.name }}">{{ category.name }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Amount</p>
+                            <input type="text" name="amount" id="" class="form-control">
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Note</p>
+                            <input type="text" name="note" id="" class="form-control">
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Date Start</p>
+                            <div class="date-filter d-flex align-items-center">
+                                <input type="text" id="datepickerInput-start" name="datepickerInput-start">
+                                <i class='bx bxs-calendar' id="datepicker-start"></i>
+                            </div>
+                        </div>
+                        <div class="add-item">
+                            <p class="mb-2 mt-3 m-0">Date End</p>
+                            <div class="date-filter d-flex align-items-center">
+                                <input type="text" id="datepickerInput-end" name="datepickerInput-end">
+                                <i class='bx bxs-calendar' id="datepicker-end"></i>
+                            </div>
+                        </div>
+                        <button class="btn btn-custom mt-2 align-self-center" style="width: 20%; padding: 1% 5%;">Add</button>
+                        <script>
+
+                        </script>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>  
+        </div>
+
+        <div class="modal fade" id="deleteConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="deleteConfirmationModalLabel">Confirm Deletion</h5>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure you want to delete the selected rows?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="cancelDelete" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" id="confirmDeleteButton" class="btn btn-danger">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myCategory-modal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content" style="width: 400px;">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editModalLabel">My Categories</h5>
+                </div>
+                
+                <div class="modal-body">
+                    <div class="container-custom">
+                        <!-- <div class="categories-func d-flex"> -->
+                            <form action="" method="get" class="search-form search-form-modal">
+                                <button type="submit"><i class='bx bx-search'></i></button>  
+                                <input type="text" name="q" placeholder="Search...">
+                            </form>
+                            <!-- <button class="btn btn-custom">
+                                Add categories
+                            </button> -->
+                        <!-- </div> -->
+                        <p class="mt-3 mb-2 fw-bold m-0">My Categories</p>
+                       
+                        <div class="categories-list">
+                            {% for category in categories %}
+                                <div class="categories-item d-flex align-items-center mt-2 p-1">
+                                    <div class="categories-item-contain d-flex align-items-center">
+                                        <div class="circle salary" style="margin-right: 5%;">
+                                            <i class="bx bx-money-withdraw" style="color: #ffffff;"></i>
+                                        </div>
+                                        <p class="m-0" style="white-space: nowrap;"> {{category.name}} </p>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="notificationModalLabel">Notification</h5>
+                    </div>
+                    <div class="modal-body" id="notificationMessage">
+                    </div>
+                    {% comment %} <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div> {% endcomment %}
+                </div>
+            </div>
+        </div>
+
+
+    </section>
+    <script>
+        $(document).ready(function() {
+            $('#addBudget-form').on('submit', function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "incomes:addBudget" %}',
+                    data: formData,
+                    success: function(response) {
+                        if (response.status === 'error') {
+                            console.log(response.message);
+                            $('#notificationMessage').text(response.message);
+                            $('#addBudget').modal('hide');
+                            $('#notificationModal').modal('show');
+                        }else{
+                            location.reload();}
+                    },
+                    error: function(xhr, status, error) {
+                    }
+                });
+            });
+        });
+
+        document.querySelector('#edit-but').addEventListener('click', function() {
+            var selectedRows = document.querySelectorAll('tbody tr #checkbox:checked');
+            console.log(selectedRows)
+            if (selectedRows.length !== 1) {
+                $('#editModalError').modal('show');
+            }else{
+                var budgetId = selectedRows[0].value;
+                console.log(budgetId);
+                $.ajax({
+                    url: '/incomes/editBudgetIncomes/' + budgetId + '/',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        // Populate the modal with fetched data
+                        $('#your-category-edit').val(data.category);
+                        $('#edit-budget-amount').val(data.amount);
+                        $('#edit-budget-note').val(data.note);
+                        $('#datepickerInputEdit-start').val(data.date_start);
+                        $('#datepickerInputEdit-end').val(data.date_end);
+                        $('#editModal').modal('show');
+                    }
+                });
+                $('#editModal').on('click', '#budget-edit-but', function() {
+                    // Prepare the data to be sent
+                    var formData = {
+                        'category': $('#your-category-edit').val(),
+                        'amount': $('#edit-budget-amount').val(),
+                        'note': $('#edit-budget-note').val(),
+                        'date_start': $('#datepickerInputEdit-start').val(),
+                        'date_end': $('#datepickerInputEdit-end').val()
+                    };
+
+                    console.log('Data to be submitted:', formData);
+        
+                    // Submit the data via AJAX
+                    $.ajax({
+                        url: '/incomes/editBudgetIncomes/' + budgetId + '/',
+                        type: 'POST',
+                        headers: { 'X-CSRFToken': $('[name=csrfmiddlewaretoken]').val() },
+                        data: formData,
+                        success: function(response) {
+                            
+                            console.log('Data successfully submitted:', response);
+                            if (response.status === 'error') {
+                                console.log(response.message);
+                                $('#notificationMessage').text(response.message);
+                                $('#editModal').modal('hide');
+                                $('#notificationModal').modal('show');
+                            }else{
+                                $('#editModal').modal('hide');
+                                location.reload();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', error);
+                            alert('An error occurred while submitting the form. Please try again.');
+                        }
+                    });
+                });
+                
+            }   
+        });
+
+        document.querySelector('#delete-but').addEventListener('click', function() {
+            var selectedRows = document.querySelectorAll('.budget-checkbox:checked');
+            if (selectedRows.length === 0) {
+                event.preventDefault();
+                $('#deleteModalError').modal('show');
+            }else{
+                $('#deleteConfirmationModal').modal('show');
+                
+                //$('#deleteConfirmationModal').modal('show');
+                for (var i = 0; i < selectedRows.length; i++) {
+                    console.log(selectedRows[i].value);
+                }
+
+                document.querySelector('#confirmDeleteButton').addEventListener('click', function() {
+                    var form = document.getElementById('delete-form');
+                    form.action = "{% url 'incomes:deleteBudgets' %}";
+                    form.submit();
+
+                }, { once: true });  // Sử dụng `{ once: true }` để đảm bảo sự kiện chỉ được gán một lần
+                document.querySelector('#cancelDelete').addEventListener('click', function() {
+                    $('#deleteConfirmationModal').modal('hide');
+                }, { once: true }); 
+
+            }
+        });
+
+        document.querySelector('#add-but').addEventListener('click', function() {
+            $('#addBudget').modal('show');
+            
+        });
+
+        // document.querySelector('#edit-category-but').addEventListener('click', function() {
+        //     $('#myCategory-modal').modal('hide');
+        //     $('#editCategory').modal('show');
+            
+        // });
+
+        document.querySelector('#myCategory').addEventListener('click', function() {
+            $('#myCategory-modal').modal('show');
+            
+        });
+        document.addEventListener("DOMContentLoaded", function() {
+            const rowsPerPage = 12;
+            const tableContainer = document.querySelector(".budget-container table tbody");
+            const paginationContainer = document.getElementById("pagination-container");
+            const tableRows = tableContainer.getElementsByTagName("tr");
+            const numPages = Math.ceil(tableRows.length / rowsPerPage);
+            
+            function showPage(page) {
+                for (let i = 0; i < tableRows.length; i++) {
+                    if (i < page * rowsPerPage && i >= (page - 1) * rowsPerPage) {
+                        tableRows[i].style.display = "table-row";
+                    } else {
+                        tableRows[i].style.display = "none";
+                    }
+                }
+            }
+
+            function createPaginationButtons() {
+                for (let i = 1; i <= numPages; i++) {
+                    const button = document.createElement("button");
+                    button.textContent = i;
+                    button.addEventListener("click", function() {
+                        showPage(i);
+                        highlightButton(i);
+                    });
+                    paginationContainer.appendChild(button);
+                }
+            }
+            function highlightButton(selectedPage) {
+                const buttons = paginationContainer.getElementsByTagName("button");
+                for (let i = 0; i < buttons.length; i++) {
+                    if (parseInt(buttons[i].textContent) === selectedPage) {
+                        buttons[i].classList.add("btn-custom");
+                    } else{
+                        buttons[i].classList.remove("btn-custom");
+                    
+                    }
+                }
+            }
+
+            showPage(1);
+            createPaginationButtons();
+            highlightButton(1);
+        });
+
+        $(document).ready(function(){
+            $('#datepickerInput-start').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                var startDate = e.date;
+                var endDate = $('#datepickerInput-end').datepicker('getDate');
+                if (endDate && endDate <= startDate) {
+                    alert("Ngày kết thúc phải lớn hơn ngày bắt đầu!");
+                    $('#datepickerInput-end').datepicker('clearDates');
+                }
+                var nextDay = new Date(startDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                $('#datepickerInput-end').datepicker('setStartDate', nextDay);
+            });
+
+            $('#datepickerInput-end').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                var endDate = e.date;
+                var startDate = $('#datepickerInput-start').datepicker('getDate');
+                if (startDate && endDate <= startDate) {
+                    alert("Ngày kết thúc phải lớn hơn ngày bắt đầu!");
+                    $('#datepickerInput-end').datepicker('clearDates');
+                }
+            });
+        
+            $('#datepicker-start').on('click', function(){
+                $('#datepickerInput-start').datepicker('show');
+            });
+
+            $('#datepicker-end').on('click', function(){
+                $('#datepickerInput-end').datepicker('show');
+            });
+
+            
+
+            $('#datepickerInputEdit-start').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                var startDate = e.date;
+                var endDate = $('#datepickerInputEdit-end').datepicker('getDate');
+                if (endDate && endDate < startDate) {
+                    alert("Ngày kết thúc phải lớn hơn ngày bắt đầu!");
+                    $('#datepickerInputEdit-end').datepicker('clearDates');
+                }
+                var nextDay = new Date(startDate);
+                nextDay.setDate(nextDay.getDate() + 1);
+                $('#datepickerInputEdit-end').datepicker('setStartDate', nextDay);
+            });
+
+            $('#datepickerInputEdit-end').datepicker({
+                format: "yyyy-mm-dd",
+                autoclose: true,
+                todayHighlight: true
+            }).on('changeDate', function (e) {
+                var initialStartDate = $('#datepickerInputEdit-start').val();
+                if (initialStartDate) {
+                    var nextDay = new Date(initialStartDate);
+                    nextDay.setDate(nextDay.getDate() + 1);
+                    $('#datepickerInputEdit-end').datepicker('setStartDate', nextDay);
+                }
+                var endDate = e.date;
+                var startDate = $('#datepickerInputEdit-start').datepicker('getDate');
+                if (startDate && endDate < startDate) {
+                    alert("Ngày kết thúc phải lớn hơn ngày bắt đầu!");
+                    $('#datepickerInputEdit-end').datepicker('clearDates');
+                }
+            });
+
+            
+        
+            $('#datepickerEdit-start').on('click', function(){
+                $('#datepickerInputEdit-start').datepicker('show');
+            });
+
+            $('#datepickerEdit-end').on('click', function(){
+                $('#datepickerInputEdit-end').datepicker('show');
+            });
+
+            $('#editModal').on('shown.bs.modal', function () {
+                console.log('modal opened');
+                $('#datepickerModal-edit').on('click', function(){
+                    console.log('clicked');
+                    $('#datepickerModal-edit').datepicker('show');
+                });
+            });
+
+            $('#datepickerModal-edit').datepicker().on('changeDate', function (e) {
+                $('#datepickerInputModal-edit').val(
+                    moment(e.date).format("YYYY-MM-DD")
+                );
+                $('#datepickerModal-edit').datepicker('hide'); // Đóng pop-up calendar khi đã chọn ngày
+            });
+        });
+        
+    
+        // });
+    </script>
+</body>
+</html>

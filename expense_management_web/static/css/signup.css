@@ -1,0 +1,29 @@
+*{
+    font-family: "Roboto";
+}
+.btn-signup{
+    width: 100%;
+}
+.container-custom{
+    background-color: #143456;
+    border-radius: 10%;
+    margin-right: 7%;
+}
+.form-control-custom{
+    border-color: #143456;
+    font-size: 0.85rem;
+}
+.form-control-custom:focus{
+    border-color: rgb(20, 52, 86);
+    box-shadow: 0 0 0 0.2rem rgba(20, 52, 86, 0.30);
+}
+.form-control-custom::placeholder {
+    color: #999; /* Màu nhạt */
+}
+.col-signup{
+    padding: 2% 10% 0 10%;
+}
+.text-remember-forgot{
+    color: #143456;
+    font-weight: bold;
+}
